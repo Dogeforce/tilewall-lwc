@@ -1,0 +1,12 @@
+.tilewall-year_small {
+    display: flex;
+    height: 110px;
+}
+.tilewall-week {
+    float: left;
+    margin-left: 3px;
+}
+.tilewall-day_name {
+    font-size: 10px;
+    height: 13px;
+}

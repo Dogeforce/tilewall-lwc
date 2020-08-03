@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title={title} icon-name={iconName}>
+        <div class="slds-m-around_small">
+            <div class={gridCSS}>
+                <div class="tilewall-week">
+                    <template for:each={days} for:item="day">
+                        <div class="tilewall-day_name slds-text-body_small slds-m-right_x-small" key={day.name}>
+                            {day.name}
+                        </div>
+                    </template>
+                </div>
+                <template for:each={weeks} for:item="week">
+                    <div class="tilewall-week" key={week.id}>
+                        <template for:each={week.days} for:item="day">
+                            <c-tilewall-day
+                                key={day.id}
+                                date={day.date}
+                                count={day.count}
+                                ondayselected={handleDaySelected}
+                            ></c-tilewall-day>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <div>
+                <template if:true={selectedDay}>
+                    <c-tilewall-day-detail
+                        day={selectedDay}
+                        template={messageTemplate}
+                    ></c-tilewall-day-detail>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+</template>

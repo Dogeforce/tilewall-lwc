@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Tile wall</masterLabel>
+    <description>The tile wall aggregates defined records and displays the count in a small grid.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="title" label="Title" type="String" default="Opportunity History"></property>
+            <property name="iconName" label="Icon" type="String" default="standard:opportunity"></property>
+            <property name="relatedObjectName" label="Related object API name" type="String" default="Opportunity"></property>
+            <property name="groupByFieldName" label="Field to group by" type="String" default="CloseDate"></property>
+            <property name="relationshipFieldName" label="Name of the relationship field to this record" type="String" default="OwnerId"></property>
+            <property name="messageTemplate" label="Message format" description="When selected, what kind of message to display. Use {0} and {1} for the count and the date, respectively." type="String" default="Selected {1}. Count: {0}."></property>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

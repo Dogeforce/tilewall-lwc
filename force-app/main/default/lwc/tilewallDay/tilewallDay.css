@@ -1,0 +1,20 @@
+.tilewall-day {
+    width: 10px;
+    height: 10px;
+    margin-top: 3px;
+}
+.tilewall-day:hover {
+    background-color: var(--lwc-colorBackgroundHighlight);
+}
+.tilewall-day_count-default {
+    background-color: var(--lwc-brandLight);
+}
+.tilewall-day_count-low {
+    background-color: var(--lwc-brandPrimaryActive);
+}
+.tilewall-day_count-medium {
+    background-color: var(--lwc-brandPrimary);
+}
+.tilewall-day_count-high {
+    background-color: var(--lwc-brandAccessible);
+}
