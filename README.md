@@ -2,6 +2,8 @@
 
 A component that displays a grid like GitHub's commit history
 
+![](images/print.png)
+
 ## About
 
 So, to display a "generic" component we need to be able to iterate over basically any kind of object related to the user record, we should therefore, allow the administrator to configure that!
@@ -20,14 +22,4 @@ Information required for any relationship to the user (or any other kind of reco
 |groupByFieldName|API name of the related object's field containing the date.|
 |relationshipFieldName|Field used as criteria for the "recordId". For example, to retrieve all opportunities of an user, this would be the `OwnerId`.|
 
-## Screenshots
-
-Both screenshots consider that the component is on the user lightning page.
-
-### Menu in the App Builder
-
 ![](images/menu.png)
-
-### User profile with many opportunities
-
-![](images/print.png)
