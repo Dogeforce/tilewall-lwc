@@ -1,10 +1,10 @@
 <template>
     <lightning-card title={title} icon-name={iconName}>
-        <div class="slds-m-around_small">
+        <div class="slds-var-m-around_small">
             <div class={gridCSS}>
                 <div class="tilewall-week">
                     <template for:each={days} for:item="day">
-                        <div class="tilewall-day_name slds-text-body_small slds-m-right_x-small" key={day.name}>
+                        <div class="tilewall-day_name slds-text-body_small slds-var-m-right_x-small" key={day.name}>
                             {day.name}
                         </div>
                     </template>
