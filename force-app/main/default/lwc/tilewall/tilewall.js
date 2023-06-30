@@ -5,18 +5,20 @@ import FIRSTDAYOFWEEK from '@salesforce/i18n/firstDayOfWeek'
 
 const ONE_DAY_MILIS = 1000 * 60 * 60 * 24
 const ONE_YEAR_MILIS = 1000 * 60 * 60 * 24 * 365
+const DEFAULT_NO_OF_DAYS = 365;
 
 export default class Tilewall extends LightningElement {
-    @api recordId
-    @api flexipageRegionWidth
-    @api title
-    @api iconName
+    @api recordId;
+    @api flexipageRegionWidth;
+    @api title;
+    @api iconName;
 
-    @api relatedObjectName
-    @api groupByFieldName
-    @api relationshipFieldName
+    @api relatedObjectName;
+    @api groupByFieldName;
+    @api relationshipFieldName;
 
-    @api messageTemplate
+    @api messageTemplate;
+    @api customWhereClause;
 
     weeks = []
     selectedDay
@@ -51,7 +53,8 @@ export default class Tilewall extends LightningElement {
             recordId: this.recordId,
             relatedObjectName: this.relatedObjectName,
             groupByFieldName: this.groupByFieldName,
-            relationshipFieldName: this.relationshipFieldName
+            relationshipFieldName: this.relationshipFieldName,
+            customWhereClause: this.customWhereClause
         }).then(res => {
             let today = new Date()
             let oneYearAgo = new Date(today.getTime() - ONE_YEAR_MILIS)
@@ -62,7 +65,7 @@ export default class Tilewall extends LightningElement {
                 offset = FIRSTDAYOFWEEK - oneYearAgo.getDay()
             }
 
-            for (let day = 0; day <= 365 - offset; day++) {
+            for (let day = 0; day <= DEFAULT_NO_OF_DAYS - offset; day++) {
                 let weekNumber = Math.floor(day / 7)
 
                 if (weeks[weekNumber] === undefined) {
