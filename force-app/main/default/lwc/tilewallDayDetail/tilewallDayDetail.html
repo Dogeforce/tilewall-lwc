@@ -1,6 +1,10 @@
 <template>
-    <div class="slds-var-m-top_small slds-var-p-top_small slds-border_top slds-text-align_center">
-        <p if:true={data} >{text}</p>
-        <p if:false={data}>Select a day in the tile wall to see more details of that specific day.</p>
-    </div>
+  <div
+    class="slds-var-m-top_small slds-var-p-top_small slds-border_top slds-text-align_center"
+  >
+    <p if:true={data}>{text}</p>
+    <p if:false={data}>
+      Select a day in the tile wall to see more details of that specific day.
+    </p>
+  </div>
 </template>

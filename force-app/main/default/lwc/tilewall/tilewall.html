@@ -1,35 +1,38 @@
 <template>
-    <lightning-card title={title} icon-name={iconName}>
-        <div class="slds-var-m-around_small">
-            <div class={gridCSS}>
-                <div class="tilewall-week">
-                    <template for:each={days} for:item="day">
-                        <div class="tilewall-day_name slds-text-body_small slds-var-m-right_x-small" key={day.name}>
-                            {day.name}
-                        </div>
-                    </template>
-                </div>
-                <template for:each={weeks} for:item="week">
-                    <div class="tilewall-week" key={week.id}>
-                        <template for:each={week.days} for:item="day">
-                            <c-tilewall-day
-                                key={day.id}
-                                date={day.date}
-                                count={day.count}
-                                ondayselected={handleDaySelected}
-                                max-count={maxRecordCount}
-                            ></c-tilewall-day>
-                        </template>
-                    </div>
-                </template>
+  <lightning-card title={title} icon-name={iconName}>
+    <div class="slds-var-m-around_small">
+      <div class={gridCSS}>
+        <div class="tilewall-week">
+          <template for:each={days} for:item="day">
+            <div
+              class="tilewall-day_name slds-text-body_small slds-var-m-right_x-small"
+              key={day.name}
+            >
+              {day.name}
             </div>
-
-            <div>
-                <c-tilewall-day-detail
-                    day={selectedDay}
-                    template={messageTemplate}
-                ></c-tilewall-day-detail>
-            </div>
+          </template>
         </div>
-    </lightning-card>
+        <template for:each={weeks} for:item="week">
+          <div class="tilewall-week" key={week.id}>
+            <template for:each={week.days} for:item="day">
+              <c-tilewall-day
+                key={day.id}
+                date={day.date}
+                count={day.count}
+                ondayselected={handleDaySelected}
+                max-count={maxRecordCount}
+              ></c-tilewall-day>
+            </template>
+          </div>
+        </template>
+      </div>
+
+      <div>
+        <c-tilewall-day-detail
+          day={selectedDay}
+          template={messageTemplate}
+        ></c-tilewall-day-detail>
+      </div>
+    </div>
+  </lightning-card>
 </template>
