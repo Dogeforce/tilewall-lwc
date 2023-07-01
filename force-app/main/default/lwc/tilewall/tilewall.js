@@ -20,8 +20,8 @@ export default class Tilewall extends LightningElement {
     @api messageTemplate;
     @api customWhereClause;
 
-    weeks = []
-    selectedDay
+    weeks = [];
+    selectedDay;
 
     get days() {
         if (!this.weeks || !this.weeks[0]) {

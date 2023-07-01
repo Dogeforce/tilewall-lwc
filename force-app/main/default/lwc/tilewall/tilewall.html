@@ -24,12 +24,10 @@
             </div>
 
             <div>
-                <template if:true={selectedDay}>
-                    <c-tilewall-day-detail
-                        day={selectedDay}
-                        template={messageTemplate}
-                    ></c-tilewall-day-detail>
-                </template>
+                <c-tilewall-day-detail
+                    day={selectedDay}
+                    template={messageTemplate}
+                ></c-tilewall-day-detail>
             </div>
         </div>
     </lightning-card>
