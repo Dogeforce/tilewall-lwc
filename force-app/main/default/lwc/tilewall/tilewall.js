@@ -35,7 +35,7 @@ export default class Tilewall extends LightningElement {
     for (let day = 0; day < 7; day++) {
       dayList.push({
         name:
-          day % 2 == 0
+          day % 2 === 0
             ? Intl.DateTimeFormat(LOCALE, { weekday: "long" }).format(
                 this.weeks[0].days[day].date
               )
