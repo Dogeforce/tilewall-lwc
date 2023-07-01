@@ -9,11 +9,18 @@ export default class TilewallDay extends LightningElement {
   @api date;
   @api count;
   @api maxCount;
+  @api selectedDay;
+  @api selected;
   _count;
 
   today = new Date();
 
+
   get style() {
+    return this.styleColor + (this.selected ? " tilewall-day_selected" : "");
+  }
+
+  get styleColor() {
     if (this._count === undefined) {
       this._count = 0;
     }

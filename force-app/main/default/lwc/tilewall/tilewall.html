@@ -16,11 +16,11 @@
           <div class="tilewall-week" key={week.id}>
             <template for:each={week.days} for:item="day">
               <c-tilewall-day
-                key={day.id}
-                date={day.date}
                 count={day.count}
-                ondayselected={handleDaySelected}
+                date={day.date}
+                key={day.id}
                 max-count={maxRecordCount}
+                ondayselected={handleDaySelected}
               ></c-tilewall-day>
             </template>
           </div>

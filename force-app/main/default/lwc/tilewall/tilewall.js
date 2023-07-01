@@ -127,7 +127,9 @@ export default class Tilewall extends LightningElement {
     this.selectedDay = event.detail;
 
     if (this.showRecordListOnDayClick) {
-      const relatedRecordList = this.template.querySelector('c-related-records-list');
+      const relatedRecordList = this.template.querySelector(
+        "c-related-records-list"
+      );
 
       if (relatedRecordList) {
         relatedRecordList.date = this.selectedDate;
@@ -135,6 +137,16 @@ export default class Tilewall extends LightningElement {
 
       this.selectedDate = event.detail.date;
     }
+
+    const days = this.template.querySelectorAll("c-tilewall-day");
+
+    if (!days) {
+      return;
+    }
+
+    days.forEach((day) => {
+      day.selected = day.date === this.selectedDate;
+    });
   }
 
   connectedCallback() {
