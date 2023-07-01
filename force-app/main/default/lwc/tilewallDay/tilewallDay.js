@@ -29,7 +29,7 @@ export default class TilewallDay extends LightningElement {
     return COLOR_WEAK;
   }
 
-  handleClick(_event) {
+  handleClick() {
     this.dispatchEvent(
       new CustomEvent("dayselected", {
         detail: {
