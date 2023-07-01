@@ -24,10 +24,26 @@ export default class Tilewall extends LightningElement {
   weeks = [];
   selectedDay;
   maxRecordCount;
+  days = [];
 
-  get days() {
+  get gridCSS() {
+    if (this.flexipageRegionWidth === "SMALL") {
+      return "tilewall-year_small slds-clearfix slds-scrollable_x";
+    }
+    return "slds-clearfix";
+  }
+
+  get showRelatedRecordsList() {
+    return (
+      this.showRecordListOnDayClick &&
+      this.relatedObjectName &&
+      this.selectedDate
+    );
+  }
+
+  setupDays() {
     if (!this.weeks || !this.weeks[0]) {
-      return [];
+      return;
     }
 
     let dayList = [];
@@ -43,14 +59,7 @@ export default class Tilewall extends LightningElement {
       });
     }
 
-    return dayList;
-  }
-
-  get gridCSS() {
-    if (this.flexipageRegionWidth === "SMALL") {
-      return "tilewall-year_small slds-clearfix slds-scrollable_x";
-    }
-    return "slds-clearfix";
+    this.days = dayList;
   }
 
   generateCalendar() {
@@ -118,11 +127,18 @@ export default class Tilewall extends LightningElement {
     this.selectedDay = event.detail;
 
     if (this.showRecordListOnDayClick) {
+      const relatedRecordList = this.template.querySelector('c-related-records-list');
+
+      if (relatedRecordList) {
+        relatedRecordList.date = this.selectedDate;
+      }
+
       this.selectedDate = event.detail.date;
     }
   }
 
   connectedCallback() {
+    this.setupDays();
     this.generateCalendar();
   }
 }

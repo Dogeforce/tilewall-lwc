@@ -32,6 +32,15 @@
           day={selectedDay}
           template={messageTemplate}
         ></c-tilewall-day-detail>
+        <c-related-records-list
+          if:true={showRelatedRecordsList}
+          date-field-name={groupByFieldName}
+          date={selectedDate}
+          object-name={relatedObjectName}
+          parent-id={recordId}
+          relationship-field={relationshipFieldName}
+        >
+        </c-related-records-list>
       </div>
     </div>
   </lightning-card>

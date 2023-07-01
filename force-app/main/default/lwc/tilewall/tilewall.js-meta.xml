@@ -16,7 +16,7 @@
             <property name="relationshipFieldName" label="Name of the relationship field to this record" type="String" default="OwnerId"></property>
             <property name="messageTemplate" label="Message format" description="When selected, what kind of message to display. Use {0} and {1} for the count and the date, respectively." type="String" default="Selected {1}. Count: {0}."></property>
             <property name="customWhereClause" label="Custom WHERE clause" description="A custom 'WHERE' clause to add after the clause to query by the parent record and last 365 days (in the SOQL it is treated as an extra 'AND')." type="String" default=""></property>
-            <property name="showRecordListOnDayClick" label="Show record list on click" description="Shows a list of records from the selected day." type="Boolean" default="false"></property>
+            <property name="showRecordListOnDayClick" label="Show record list on click" description="Shows a list of records from the selected day." type="Boolean" default="true"></property>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
