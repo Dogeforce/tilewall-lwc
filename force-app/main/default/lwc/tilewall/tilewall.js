@@ -22,6 +22,7 @@ export default class Tilewall extends LightningElement {
 
     weeks = [];
     selectedDay;
+    maxRecordCount;
 
     get days() {
         if (!this.weeks || !this.weeks[0]) {
@@ -60,6 +61,7 @@ export default class Tilewall extends LightningElement {
             let oneYearAgo = new Date(today.getTime() - ONE_YEAR_MILIS)
             let weeks = []
             let offset = 0;
+            let maxRecordCount = 0;
 
             if (oneYearAgo.getDay() != FIRSTDAYOFWEEK) {
                 offset = FIRSTDAYOFWEEK - oneYearAgo.getDay()
@@ -86,9 +88,14 @@ export default class Tilewall extends LightningElement {
                     date: thatDay,
                     count: count
                 })
+
+                if (maxRecordCount < count) {
+                    maxRecordCount = count;
+                }
             }
 
             this.weeks = weeks
+            this.maxRecordCount = maxRecordCount;
         }).catch(err => {
             console.error(err)
         })
