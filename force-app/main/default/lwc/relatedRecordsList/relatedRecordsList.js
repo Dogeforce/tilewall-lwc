@@ -8,6 +8,7 @@ export default class RelatedRecordsList extends LightningElement {
   @api relationshipField;
   @api date;
   @api dateFieldName;
+  @api customWhereClause;
 
   iconName;
   nameField;
@@ -47,7 +48,8 @@ export default class RelatedRecordsList extends LightningElement {
     objectName: "$objectName",
     relationshipFieldName: "$relationshipField",
     dateFieldName: "$dateFieldName",
-    dateValue: "$date"
+    dateValue: "$date",
+    customWhereClause: "$customWhereClause"
   })
   wiredRelatedRecords({ error, data }) {
     if (error) {

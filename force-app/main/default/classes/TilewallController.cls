@@ -26,7 +26,8 @@ public with sharing class TilewallController {
         String objectName,
         String relationshipFieldName,
         String dateFieldName,
-        Date dateValue
+        Date dateValue,
+        String customWhereClause
     ) {
         if (parentId == null) {
             return new List<SObject>();
@@ -38,9 +39,10 @@ public with sharing class TilewallController {
             objectName,
             relationshipFieldName,
             dateFieldName,
-            dateValue
+            dateValue,
+            customWhereClause
         );
-        System.debug(query);
+
         return Database.query(query);
     }
 
@@ -71,10 +73,13 @@ public with sharing class TilewallController {
         String objectName,
         String relationshipFieldName,
         String dateFieldName,
-        Date dateValue
+        Date dateValue,
+        String customWhereClause
     ) {
         String query = String.format(
-            'SELECT Id, {0} FROM {1} WHERE {2} = :parentId AND {3} = {4}',
+            'SELECT Id, {0} FROM {1} WHERE {2} = :parentId AND {3} = {4} ' +
+                (String.isNotBlank(customWhereClause) ? ('AND {5}') : '') +
+                ' ORDER BY {0} ASC',
             new List<Object>{
                 nameField,
                 objectName,
@@ -87,7 +92,8 @@ public with sharing class TilewallController {
                         getFormattedDayOrMonth(dateValue.month()),
                         getFormattedDayOrMonth(dateValue.day())
                     }
-                )
+                ),
+                customWhereClause
             }
         );
 

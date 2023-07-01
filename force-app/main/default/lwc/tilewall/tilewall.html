@@ -33,9 +33,10 @@
           template={messageTemplate}
         ></c-tilewall-day-detail>
         <c-related-records-list
-          if:true={showRelatedRecordsList}
+          custom-where-clause={customWhereClause}
           date-field-name={groupByFieldName}
           date={selectedDate}
+          if:true={showRelatedRecordsList}
           object-name={relatedObjectName}
           parent-id={recordId}
           relationship-field={relationshipFieldName}
