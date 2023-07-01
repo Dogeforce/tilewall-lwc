@@ -55,7 +55,8 @@ export default class Tilewall extends LightningElement {
             ? Intl.DateTimeFormat(LOCALE, { weekday: "long" }).format(
                 this.weeks[0].days[day].date
               )
-            : ""
+            : "",
+        no: day
       });
     }
 
@@ -117,6 +118,8 @@ export default class Tilewall extends LightningElement {
 
         this.weeks = weeks;
         this.maxRecordCount = maxRecordCount;
+
+        this.setupDays(); // sets up the day names
       })
       .catch((err) => {
         console.error(err);
@@ -150,7 +153,6 @@ export default class Tilewall extends LightningElement {
   }
 
   connectedCallback() {
-    this.setupDays();
     this.generateCalendar();
   }
 }
