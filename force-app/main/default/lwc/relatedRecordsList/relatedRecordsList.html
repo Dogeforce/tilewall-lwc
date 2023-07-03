@@ -1,15 +1,24 @@
 <template>
-  <template if:false={hasData}>
-    <p>No data on this day.</p>
+  <template if:false={hideConfigErrorMessages}>
+    <div class="slds-text-color_error" if:true={hasErrors}>
+      <template for:each={errors} for:item="err">
+        <p key={err}>{err}</p>
+      </template>
+    </div>
   </template>
-  <template if:true={hasData}>
-    <p>Related {relatedObjectNamePlural} on this date:</p>
-    <template for:each={records} for:item="record">
-      <c-related-records-list-item
-        key={record.Id}
-        record={record}
-        name-field={nameField}
-      ></c-related-records-list-item>
+  <template if:false={hasErrors}>
+    <template if:false={hasData}>
+      <p>No data on this day.</p>
+    </template>
+    <template if:true={hasData}>
+      <p>Related {relatedObjectNamePlural} on this date:</p>
+      <template for:each={records} for:item="record">
+        <c-related-records-list-item
+          key={record.Id}
+          name-field={nameField}
+          record={record}
+        ></c-related-records-list-item>
+      </template>
     </template>
   </template>
 </template>

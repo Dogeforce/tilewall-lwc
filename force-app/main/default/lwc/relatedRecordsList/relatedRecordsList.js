@@ -9,12 +9,18 @@ export default class RelatedRecordsList extends LightningElement {
   @api date;
   @api dateFieldName;
   @api customWhereClause;
+  @api hideConfigErrorMessages;
 
+  errors = [];
   iconName;
   nameField;
   records = [];
   relatedObjectNamePlural = "";
   _objectName;
+
+  get hasErrors() {
+    return this.errors.length > 0;
+  }
 
   get hasData() {
     return this.records && this.records.length > 0;
@@ -23,6 +29,14 @@ export default class RelatedRecordsList extends LightningElement {
   @wire(getObjectInfo, { objectApiName: "$_objectName" })
   wiredRelatedObjectInfo({ error, data }) {
     if (error || !this._objectName) {
+      // will display "Object Task is not supported in UI API" if the object is not supported
+      if (
+        error?.body?.statusCode === 400 &&
+        error?.body?.errorCode === "INVALID_TYPE"
+      ) {
+        console.warn(error.body.message);
+        this.errors = [error.body.message];
+      }
       return;
     }
     if (data) {
@@ -51,15 +65,9 @@ export default class RelatedRecordsList extends LightningElement {
     dateValue: "$date",
     customWhereClause: "$customWhereClause"
   })
-  wiredRelatedRecords({ error, data }) {
-    if (error) {
-      console.error(
-        "Something went wrong fetching data from the wire service."
-      );
-      return;
-    }
-    if (data) {
-      this.records = data;
+  wiredRelatedRecords(result) {
+    if (result.data) {
+      this.records = result.data;
     }
   }
 
