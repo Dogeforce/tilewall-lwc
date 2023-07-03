@@ -8,7 +8,7 @@ export default class RelatedRecordsList extends LightningElement {
   @api relationshipField;
   @api date;
   @api dateFieldName;
-  @api customWhereClause;
+  @api customWhereClause = "";
   @api hideConfigErrorMessages;
 
   errors = [];
@@ -28,17 +28,6 @@ export default class RelatedRecordsList extends LightningElement {
 
   @wire(getObjectInfo, { objectApiName: "$_objectName" })
   wiredRelatedObjectInfo({ error, data }) {
-    if (error || !this._objectName) {
-      // will display "Object Task is not supported in UI API" if the object is not supported
-      if (
-        error?.body?.statusCode === 400 &&
-        error?.body?.errorCode === "INVALID_TYPE"
-      ) {
-        console.warn(error.body.message);
-        this.errors = [error.body.message];
-      }
-      return;
-    }
     if (data) {
       // gets the name field
       this.nameField = data.nameFields[0];
@@ -54,6 +43,18 @@ export default class RelatedRecordsList extends LightningElement {
 
       this.iconName = `${category}:${iconName}`;
     }
+    if (error || !this._objectName) {
+      // will display "Object Task is not supported in UI API" if the object is not supported
+      if (
+        error?.body?.statusCode === 400 &&
+        error?.body?.errorCode === "INVALID_TYPE"
+      ) {
+        console.warn(error.body.message);
+        this.errors = [error.body.message];
+      } else if (error) {
+        console.error(error);
+      }
+    }
   }
 
   @wire(getRelatedRecords, {
@@ -65,9 +66,10 @@ export default class RelatedRecordsList extends LightningElement {
     dateValue: "$date",
     customWhereClause: "$customWhereClause"
   })
-  wiredRelatedRecords(result) {
-    if (result.data) {
-      this.records = result.data;
+  // eslint-disable-next-line no-unused-vars
+  wiredRelatedRecords({ error, data }) {
+    if (data) {
+      this.records = data;
     }
   }
 

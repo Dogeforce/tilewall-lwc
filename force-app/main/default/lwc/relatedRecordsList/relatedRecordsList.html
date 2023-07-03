@@ -14,6 +14,8 @@
       <p>Related {relatedObjectNamePlural} on this date:</p>
       <template for:each={records} for:item="record">
         <c-related-records-list-item
+          class="slds-var-m-around_xx-small"
+          icon-name={iconName}
           key={record.Id}
           name-field={nameField}
           record={record}

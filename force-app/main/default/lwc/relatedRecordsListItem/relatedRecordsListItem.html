@@ -1,3 +1,10 @@
 <template>
-  <p>{name}</p>
+  <lightning-button
+    icon-name={iconName}
+    label={name}
+    onclick={handleClick}
+    variant="base"
+  >
+    <label>{name}</label>
+  </lightning-button>
 </template>

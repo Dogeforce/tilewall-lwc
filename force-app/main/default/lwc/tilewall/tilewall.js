@@ -18,8 +18,9 @@ export default class Tilewall extends LightningElement {
   @api relationshipFieldName;
 
   @api messageTemplate;
-  @api customWhereClause;
+  @api customWhereClause = "";
   @api showRecordListOnDayClick;
+  @api hideConfigErrorMessages;
 
   weeks = [];
   selectedDay;
@@ -134,11 +135,11 @@ export default class Tilewall extends LightningElement {
         "c-related-records-list"
       );
 
+      this.selectedDate = this.selectedDay.date;
+
       if (relatedRecordList) {
         relatedRecordList.date = this.selectedDate;
       }
-
-      this.selectedDate = event.detail.date;
     }
 
     const days = this.template.querySelectorAll("c-tilewall-day");
