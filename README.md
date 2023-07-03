@@ -2,7 +2,13 @@
 
 A component that displays a grid like GitHub's commit history
 
-![](images/print.png)
+## Base
+
+![Base component on a User record page, showing related opportunities.](images/print.png)
+
+## Showing related records
+
+![Showing a related custom object on another record, with the "show record list on click" option enabled.](images/related.png)
 
 ## About
 
@@ -24,6 +30,12 @@ Information required for any relationship to the user (or any other kind of reco
 |groupByFieldName|yes|API name of the related object's field containing the date.|
 |relationshipFieldName|yes|Field used as criteria for the "recordId". For example, to retrieve all opportunities of an user, this would be the `OwnerId`.|
 |customWhereClause|no|A custom WHERE SOQL clause to filter records. The original query just aggregates the records, and this param, if present, adds an "AND" clause to the query (you don't need to add the "AND" prefix yourself).|
+|showRecordListOnDayClick|no|When enabled, will make the component list the related records on the day that the user clicked on.|
+|hideConfigErrorMessages|no|Hides the error messages when enabled. They show in red, and are useful for when you need to test this component in a sandbox environment, especially for scenarios described in the "Limitations" section below.|
+
+## Limitations
+
+When `showRecordListOnDayClick` is enabled, the component uses the Lightning Experience's UI API to fetch data from the related records, such as its icon and name fields. This means that this feature is unsupported for certain standard objects, such as Task and Event.
 
 ### App Builder setup
 
