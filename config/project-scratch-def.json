@@ -1,5 +1,5 @@
 {
-  "orgName": "renatosilva company",
+  "orgName": "Walls, Inc.",
   "edition": "Developer",
   "features": [],
   "settings": {
@@ -14,5 +14,6 @@
     "mobileSettings": {
         "enableS1EncryptedStoragePref2": false
     }
-  }
+  },
+  "language": "en_US"
 }
