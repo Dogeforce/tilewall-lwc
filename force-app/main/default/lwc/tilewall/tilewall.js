@@ -6,30 +6,50 @@ import FIRSTDAYOFWEEK from "@salesforce/i18n/firstDayOfWeek";
 const ONE_DAY_MILIS = 1000 * 60 * 60 * 24;
 const ONE_YEAR_MILIS = 1000 * 60 * 60 * 24 * 365;
 const DEFAULT_NO_OF_DAYS = 365;
+const MARGIN_PX = 3;
+const NO_OF_WEEKS = 52;
+const AFTER_RENDER_WAIT_TIME_MILIS = 500;
 
 export default class Tilewall extends LightningElement {
+  /** @type{string} */
   @api recordId;
+  /** @type{string} */
   @api flexipageRegionWidth;
-  @api title;
+  /** @type{string} */
+  @api titleLabel;
+  /** @type{string} */
   @api iconName;
 
+  /** @type{string} */
   @api relatedObjectName;
+  /** @type{string} */
   @api groupByFieldName;
+  /** @type{string} */
   @api relationshipFieldName;
 
+  /** @type{string} */
   @api messageTemplate;
+  /** @type{string} */
   @api customWhereClause = "";
+  /** @type{boolean} */
   @api showRecordListOnDayClick;
+  /** @type{boolean} */
   @api hideConfigErrorMessages;
 
+  /** @type{Week[]} */
   weeks = [];
+  /** @type{Day} */
   selectedDay;
+  /** @type{Number} */
   maxRecordCount;
+  /** @type{Day[]} */
   days = [];
+  /** @type{boolean} */
+  resizedOnInit = false;
 
   get gridCSS() {
     if (this.flexipageRegionWidth === "SMALL") {
-      return "tilewall-year_small slds-clearfix slds-scrollable_x";
+      return "tilewall-year_small slds-clearfix";
     }
     return "slds-clearfix";
   }
@@ -49,15 +69,15 @@ export default class Tilewall extends LightningElement {
 
     let dayList = [];
 
-    for (let day = 0; day < 7; day++) {
+    for (let dayNo = 0; dayNo < 7; dayNo++) {
       dayList.push({
         name:
-          day % 2 === 0
+          dayNo % 2 === 0
             ? Intl.DateTimeFormat(LOCALE, { weekday: "long" }).format(
-                this.weeks[0].days[day].date
+                this.weeks[0].days[dayNo].date
               )
             : "",
-        no: day
+        no: dayNo
       });
     }
 
@@ -131,6 +151,7 @@ export default class Tilewall extends LightningElement {
     this.selectedDay = event.detail;
 
     if (this.showRecordListOnDayClick) {
+      /** @type{RelatedRecordsList} */
       const relatedRecordList = this.template.querySelector(
         "c-related-records-list"
       );
@@ -142,6 +163,7 @@ export default class Tilewall extends LightningElement {
       }
     }
 
+    /** @type {NodeListOf} */
     const days = this.template.querySelectorAll("c-tilewall-day");
 
     if (!days) {
@@ -153,7 +175,56 @@ export default class Tilewall extends LightningElement {
     });
   }
 
+  /**
+   * Handles the resize event.
+   */
+  resize() {
+    const weeksContainer = this.template.querySelector(
+      `[data-id="weeks-container"]`
+    );
+    const weekNamesContainer = this.template.querySelector(
+      `[data-id="week-names-container"]`
+    );
+    const weeksContainerWidth = weeksContainer.getBoundingClientRect().width;
+    const weekNamesContainerWidth =
+      weekNamesContainer.getBoundingClientRect().width;
+
+    // with a margin of 3px to the left per week, we can calculate the size of the day square
+    const daySquareSize =
+      (weeksContainerWidth - weekNamesContainerWidth) / NO_OF_WEEKS -
+      MARGIN_PX -
+      1;
+
+    // query all days and set the size
+    /** @type{NodeListOf<TilewallDay>} */
+    const days = this.template.querySelectorAll(`[data-name="day"]`);
+
+    days.forEach((day) => {
+      day.setDaySize(daySquareSize);
+    });
+
+    // sets the height of the week name containers so they are aligned with the changes
+    /** @type{NodeListOf<HTMLElement>} */
+    const weekNamesContainers =
+      this.template.querySelectorAll(".tilewall-day_name");
+
+    weekNamesContainers.forEach((el) => {
+      el.style.height = `${daySquareSize + MARGIN_PX}px`;
+    });
+  }
+
   connectedCallback() {
     this.generateCalendar();
+    window.addEventListener("resize", this.resize.bind(this));
+  }
+
+  renderedCallback() {
+    if (!this.resizedOnInit) {
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      setTimeout(() => {
+        this.resize();
+      }, AFTER_RENDER_WAIT_TIME_MILIS);
+      this.resizedOnInit = true;
+    }
   }
 }
