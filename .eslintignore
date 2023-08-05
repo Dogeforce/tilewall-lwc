@@ -4,3 +4,4 @@
 **/lwc/**/*.svg
 **/lwc/**/*.xml
 .sfdx
+*.d.ts

@@ -9,7 +9,7 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
-            <property name="title" label="Title" type="String" default="Opportunity History"></property>
+            <property name="titleLabel" label="Title" type="String" default="Opportunity History"></property>
             <property name="iconName" label="Icon" type="String" default="standard:opportunity"></property>
             <property name="relatedObjectName" label="Related object API name" type="String" default="Opportunity"></property>
             <property name="groupByFieldName" label="Field to group by" type="String" default="CloseDate"></property>

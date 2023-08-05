@@ -1,8 +1,8 @@
 <template>
-  <lightning-card title={title} icon-name={iconName}>
+  <lightning-card title={titleLabel} icon-name={iconName}>
     <div class="slds-var-m-around_small">
       <div class={gridCSS}>
-        <div class="tilewall-week">
+        <div class="tilewall-week" data-id="week-names-container">
           <template for:each={days} for:item="day">
             <div
               class="tilewall-day_name slds-text-body_small slds-var-m-right_x-small"
@@ -12,19 +12,22 @@
             </div>
           </template>
         </div>
-        <template for:each={weeks} for:item="week">
-          <div class="tilewall-week" key={week.id}>
-            <template for:each={week.days} for:item="day">
-              <c-tilewall-day
-                count={day.count}
-                date={day.date}
-                key={day.id}
-                max-count={maxRecordCount}
-                ondayselected={handleDaySelected}
-              ></c-tilewall-day>
-            </template>
-          </div>
-        </template>
+        <div data-id="weeks-container">
+          <template for:each={weeks} for:item="week">
+            <div class="tilewall-week" key={week.id}>
+              <template for:each={week.days} for:item="day">
+                <c-tilewall-day
+                  count={day.count}
+                  data-name="day"
+                  date={day.date}
+                  key={day.id}
+                  max-count={maxRecordCount}
+                  ondayselected={handleDaySelected}
+                ></c-tilewall-day>
+              </template>
+            </div>
+          </template>
+        </div>
       </div>
 
       <div>
